@@ -1,7 +1,7 @@
 Welcome to my trabajo for pancho
 ================================
 
--> Crear la RED #em este caso: panchosred
+-> Crear la RED #en este caso: panchosred
 ```
 docker network create panchosred
 ```
