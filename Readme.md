@@ -1,8 +1,7 @@
 Welcome to my trabajo for pancho
 ================================
 
-# TODO: Poneme una seccion de como crear la red.
-
+-> Crear la RED #em este caso: panchosred
 ```
 docker network create panchosred
 ```
