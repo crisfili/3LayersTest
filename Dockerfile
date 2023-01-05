@@ -4,10 +4,13 @@ FROM python:3.11.0rc2-bullseye
 
 #COPY requirements.txt ./
 #RUN pip install --no-cache-dir -r requirements.txt
-RUN pip install flask
+RUN pip install flask pyodbc
 
-EXPOSE 5000
 
 COPY . .
 
-CMD [ "python", "./your-daemon-or-script.py" ]
+CMD [ "python", "./frontend.py" ]
+
+#acceder data base en docker como postgres:
+#docker exec -it postgres-test psql -U postgres
+

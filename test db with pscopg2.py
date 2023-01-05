@@ -53,20 +53,12 @@ else:
     cursor = conn.cursor()
 
 
-
-
-#____________________de aca para arriba ANDA____________________________________________________________________
-
-
-
 #Preparing query to create a database
 sqldb = '''SELECT datname FROM pg_database'''
 cursor.execute(sqldb)
 database_exist = cursor.fetchall()
 print(f"the existing data base are: {database_exist}")
 # Verify if I need to create the database or not.
-# if <>
-# else:
 #Creating a database
 
 if  (database,) in database_exist:
@@ -89,53 +81,28 @@ else:
     conn.autocommit = True
     cursor = conn.cursor()
 
-    sqlu = '''SELECT rolname FROM pg_roles'''
-    cursor.execute(sqlu)
-    resultrole = cursor.fetchall()
-    sqldb = '''SELECT datname FROM pg_database'''
-    cursor.execute(sqldb)
-    database_exist = cursor.fetchall()
-    #print(f"{resultrole} {database_exist}")
-    if (user,) in resultrole and (database,) in database_exist:
-        print('Everything is allright, work as you wish the database')
-    else:
-        print("Error, please check your code. Bye")
+sqlu = '''SELECT rolname FROM pg_roles'''
+cursor.execute(sqlu)
+resultrole = cursor.fetchall()
+sqldb = '''SELECT datname FROM pg_database'''
+cursor.execute(sqldb)
+database_exist = cursor.fetchall()
+#print(f"{resultrole} {database_exist}")
+if (user,) in resultrole and (database,) in database_exist:
+    print('Everything is allright, work as you wish with the database')
+else:
+    print("Error, please check your code. Bye") 
 
+#Creating the table.
+psqltable = '''SELECT tablename FROM pg_tables'''
+cursor.execute(psqltable)
+table_exist = cursor.fetchall()
+print(f"the existing data base are: {table_exist}")
 
-
-
-
-#print("Database created successfully........")
-#
-#
-#
-#
-#
-#
-#
-#
-#
-## Verify if I need to create the table or not.
-## if <>:
-## else:
-##Creating the table
-#sql = '''CREATE TABLE cotizacion(
-#   Moneda VARCHAR(30),
-#   CotizacionDolar INT
-#);'''
-#cursor.execute(sql)
-#
-## try:
-#
-## Generate a random value for the cotization.
-## loop:
-##     wait(1m)
-##     cotizacion = random()
-##     cursor.execute('insert into cotizacion values...')
-#
-## except...
-##     close connection.
-#
-##Closing the connection
-#conn.close()
-#
+if  (table,) in table_exist:
+    print('table exist.')
+else:
+    cursor.execute("CREATE TABLE cotizacion (id serial PRIMARY KEY, value integer, coin varchar);")
+    cursor.execute("INSERT INTO cotizacion (value, coin) VALUES (%s, %s)",
+    (450, "USDolar"))
+    print(f'''{table} CONECTED''')
