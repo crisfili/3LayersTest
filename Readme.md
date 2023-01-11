@@ -1,16 +1,19 @@
 Welcome to my trabajo for pancho
 ================================
 
--> Crear la RED #en este caso: panchosred
+-> Crear la RED #en este caso: backendNET & frontendNET
 ```
-docker network create panchosred
+docker network create backendNET
+```
+```
+docker network create frontendNET
 ```
 
 # Levantar la base de datos
 
 ->Para levantar la DB hay que hacer
 ```
-docker run --name db -e POSTGRES_PASSWORD=1234 --net=panchosred -p 5432:5432 -it -d postgres:14
+docker run --name db -e POSTGRES_PASSWORD=1234 --net=backendNET -p 5432:5432 -it -d postgres:14
 ```
     #-Para ejecutar una consola de postgres como Usuario postgres
     ```
@@ -30,12 +33,23 @@ docker run --name db -e POSTGRES_PASSWORD=1234 --net=panchosred -p 5432:5432 -it
         sudo kill 1330 1329 1328 1318 1317 1219 | son los num de servicio que usa postgres
         ```
 
-->Para levantar el python que ayuda a desarrolar
+->Para levantar el python que ayuda a desarrolar el backend
 ```
-docker run -it --name backend --net=panchosred python:3.11.0rc2-bullseye # --hostname backend --alias backend 
+docker run -it --name backend --net=backendNET python:3.11.0rc2-bullseye
 ```
 
     -y en otro terminal, mientras aquel esta abierto:
     ```
     docker exec -it backend pip install psycopg2-binary
+    ```
+    
+
+->Para levantar el python que ayuda a desarrolar frontend    
+    
+```
+docker run -it --name frontend --net=frontendNET python:3.11.0rc2-bullseye
+```
+    -y en otro terminal, mientras aquel esta abierto:
+    ```
+    docker exec -it frontend pip install flask
     ```
