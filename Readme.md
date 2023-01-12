@@ -15,6 +15,12 @@ docker network create frontendNET
 ```
 docker run --name db -e POSTGRES_PASSWORD=1234 --net=backendNET -p 5432:5432 -it -d postgres:14
 ```
+
+->Para conectar la DB a la red del frontend
+```
+docker network connect --alias db frontendNET db
+```
+
     #-Para ejecutar una consola de postgres como Usuario postgres
     ```
     docker exec -it db psql -U postgres
